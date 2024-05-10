@@ -76,3 +76,5 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers", "= 5.3.0"
 end
+
+gem "inline_svg", "~> 1.9"

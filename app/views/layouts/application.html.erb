@@ -85,7 +85,8 @@
                         <%= current_user.email ||= current_user.username %>
                         <%= render_svg "icons/chevron-down" %>
                       <% end %>
-                      <ul class="hidden">
+                      <ul class="">
+                      <%## NOTE This is the dropdown menu for the user and it is currently hidden!!!!!!!!!!%>
                         <li>
                           <%= link_to "#", class: "hover:bg-indigo-600 hover:text-white text-gray-700 no-underline block py-2 px-4 flex items-center text-sm" do %>
                             <%= render_svg "icons/user", styles: "w-5 h-5 fill-current text-gray-600 mr-3" %>
@@ -117,7 +118,7 @@
     </nav>
 
 
-    <div class="container mx-auto py-6">
+    <div class="container mx-auto py-6 px-6">
       <%= yield %>
     </div>
   </body>

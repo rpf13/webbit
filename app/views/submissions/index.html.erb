@@ -8,19 +8,17 @@
       </ul>
     </div>
   <% else %>
-  <div class="p-10 text-center">
-    <div class="flex justify-center mb-3">
-      <%= render_svg "icons/empty" %>
+    <div class="p-10 text-center">
+      <div class="flex justify-center mb-3">
+        <%= render_svg "icons/empty" %>
+      </div>
+      <p class="mb-4">Wow such empty...</p>
+      <%= link_to "Create a new post", new_submission_path, class: "btn btn-indigo" %>
     </div>
-    <p class="mb-4">Wow such empty...</p>
-    <%= link_to "Create a new post", new_submission_path, class: "btn btn-indigo" %>
-  </div>
   <% end %>
 <% end %>
-
 <% content_for :secondary_content do %>
-  <%= link_to "New submission", new_submission_path %>
+  <%= link_to "New submission", new_submission_path, class: "btn btn-indigo" %>
 <% end %>
-
 <%= render partial: "basic_layout" %>
 <%# the above line could be simplified to: render "basic_layout" %>

@@ -1,12 +1,12 @@
 <% content_for :community_label, "w/#{@submission.community.name}" %>
-
-<p style="color: green"><%= notice %></p>
-
-<%= render @submission %>
-
-<div>
-  <%= link_to "Edit this submission", edit_submission_path(@submission) %> |
-  <%= link_to "Back to submissions", submissions_path %>
-
-  <%= button_to "Destroy this submission", @submission, method: :delete %>
-</div>
+<% content_for :primary_content do %>
+  <p>Posted by <%= @submission.user.username %></p>
+<% end %>
+<% content_for :secondary_content do %>
+  <div>
+    <%= link_to "Edit this submission", edit_submission_path(@submission) %> |
+    <%= link_to "Back to submissions", submissions_path %>
+    <%= button_to "Destroy this submission", @submission, method: :delete %>
+  </div>
+<% end %>
+<%= render "basic_layout" %>

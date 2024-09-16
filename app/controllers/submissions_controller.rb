@@ -9,6 +9,7 @@ class SubmissionsController < ApplicationController
 
   # GET /submissions/1 or /submissions/1.json
   def show
+    @community = @submission.community
   end
 
   # GET /submissions/new

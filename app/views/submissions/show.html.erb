@@ -14,7 +14,7 @@
     <div class="flex-1">
       <p class="text-sm text-gray-600 mb-3">Posted by <%= @submission.user.username %> <%= time_ago_in_words(@submission.created_at) + " ago" %></p>
       <h1 class="font-bold text-3xl mb-6"><%= @submission.title %></h1>
-      <div class="prose prose-lg prose-indigo">
+      <div class="prose prose-base prose-indigo">
         <%= simple_format @submission.body %>
       </div>
       <%# Submission data %>
@@ -38,10 +38,6 @@
   </div>
 <% end %>
 <% content_for :secondary_content do %>
-  <div>
-    <%= link_to "Edit this submission", edit_submission_path(@submission) %> |
-    <%= link_to "Back to submissions", submissions_path %>
-    <%= button_to "Destroy this submission", @submission, method: :delete %>
-  </div>
+  <%= render "communities/sidebar", community: @submission.community %>
 <% end %>
 <%= render "basic_layout" %>

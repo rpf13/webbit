@@ -39,7 +39,11 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-    redirect_to submissions_path(@submission)
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to submission_path(@submission), notice: "Comment deleted successfully" }
+    end
   end
 
   private

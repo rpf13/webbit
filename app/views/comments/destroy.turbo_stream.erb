@@ -1,7 +1,9 @@
 <%= turbo_stream.remove dom_id(@comment) %>
-<%= turbo_stream.replace "#{dom_id(@submission)}_comments_form" do %>
+<!-- Update new comment form for good measure -->
+<%= turbo_stream.update "new_comment_form" do %>
   <%= render "comments/form", comment: Comment.new %>
 <% end %>
-<%= turbo_stream.replace "#{dom_id(@submission)}_comment_count" do %>
+<!-- Update comment count -->
+<%= turbo_stream.update "#{dom_id(@submission)}_comment_count" do %>
   <p id="<%= dom_id(@submission)%>_comment_count"><%= pluralize(@submission.comments.size, 'comment') %></p>
 <% end %>

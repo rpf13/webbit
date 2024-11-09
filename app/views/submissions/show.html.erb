@@ -40,8 +40,9 @@
     </div>
   </div>
   <div class="mt-6 pt-6 border-t border-gray-300">
+    <!-- updated div id to match what's in the create and destroy .turbo_stream.erb files - "new_comment_form" id -->
     <% if user_signed_in? %>
-      <div id="<%= dom_id(@submission) %>_comments_form">
+      <div id="new_comment_form">
         <%= render "comments/form", comment: Comment.new %>
       </div>
     <% else %>

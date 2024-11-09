@@ -1,7 +1,8 @@
 <%= turbo_stream.append "#{dom_id(@submission)}_comments" do %>
   <%= render "comments/comment", comment: @comment %>
 <% end %>
-<%= turbo_stream.replace "#{dom_id(@submission)}_comments_form" do %>
+<!-- Update id to generic "new_comment_form" and use "update" stream action instead of replace -->
+<%= turbo_stream.update "new_comment_form" do %>
   <%= render "comments/form", comment: Comment.new %>
 <% end %>
 <%= turbo_stream.replace "#{dom_id(@submission)}_comment_count" do %>

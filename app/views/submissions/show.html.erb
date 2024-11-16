@@ -2,21 +2,22 @@
 <%= render "communities/header", community: @submission.community %>
 <% content_for :primary_content do %>
   <div class="flex flex-row justify-between">
-    <div class="w-10 flex flex-col items-start">
-      <%= link_to "#", class: "block text-center" do %>
-        <%= render_svg "icons/up-vote", styles: "fill-current text-gray-500 w-4 h-4" %>
-      <% end %>
-      <span class="text-gray-700 text-center block text-sm -ml-[5px]">123</span>
-      <%= link_to "#", class: "block text-center" do %>
-        <%= render_svg "icons/down-vote", styles: "fill-current text-gray-500 w-4 h-4" %>
-      <% end %>
-    </div>
+    <%# Inject the voting partial  %>
+    <%= render "voting", submission: @submission %>
     <div class="flex-1">
       <p class="text-sm text-gray-600 mb-3">Posted by
         <%= link_to @submission.user.username, profile_path(@submission.user), class: "underline" %>
         <%= time_ago_in_words(@submission.created_at) + " ago" %>
       </p>
       <h1 class="font-bold text-3xl mb-6"><%= @submission.title %></h1>
+      <%# The div container w. flex is additional to center it, resize_to_fit as well %>
+      <div class="flex justify-center mb-6">
+        <% if @submission.media.video? %>
+          <%= video_tag @submission.media %>
+        <% else %>
+          <%= image_tag @submission.media.variant(resize_to_fit: [400, 400]), alt: @submission.title, class: "rounded" %>
+        <% end %>
+      </div>
       <div class="prose prose-base prose-indigo">
         <%= simple_format @submission.body %>
       </div>

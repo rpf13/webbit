@@ -9,6 +9,7 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
   <body class="bg-gray-200 relative h-screen overflow-x-hidden accent-indigo-600">
+    <%# The following debug params line is used to show the path in the UI %>
     <%= debug params %>
     <%# Flash error message styling  %>
     <% flash.each do |type, message| %>

@@ -70,7 +70,8 @@
           <div class="lg:pl-6 flex flex-wrap items-center justify-end pt-4 lg:pt-0">
             <div class="mr-3">
               <% if user_signed_in? %>
-                <%= link_to new_submission_path, class: "p-4 rounded hover:bg-indigo-50 bg-white block" do %>
+                <%# in the tutorial, the link_to points to new_submission_path but it is nicer to get redirected to the root %>
+                <%= link_to root_path, class: "p-4 rounded hover:bg-indigo-50 bg-white block" do %>
                   <%= render_svg "icons/create", styles: "group-hover:text-indigo-600 fill-current text-gray-600", title: "Create submission" %>
                 <% end %>
               <% else %>

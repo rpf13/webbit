@@ -1,6 +1,6 @@
 class CommunitiesController < ApplicationController
-  before_action :set_community, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, except: %i[ index show ]
+  before_action :set_community, only: %i[show edit update destroy]
+  before_action :authenticate_user!, except: %i[index show]
 
   # GET /communities or /communities.json
   def index
@@ -9,11 +9,12 @@ class CommunitiesController < ApplicationController
 
   # GET /communities/1 or /communities/1.json
   def show
+    @subscription = @community.subscriptions.where(user: current_user).first
   end
 
   # GET /communities/new
   def new
-    @community = current_user.communities.build
+    @community = current_user.communities.new
   end
 
   # GET /communities/1/edit
@@ -22,7 +23,8 @@ class CommunitiesController < ApplicationController
 
   # POST /communities or /communities.json
   def create
-    @community = current_user.communities.build(community_params)
+    @community = current_user.communities.new(community_params)
+    @community.user = current_user
 
     respond_to do |format|
       if @community.save
@@ -59,13 +61,14 @@ class CommunitiesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_community
-      @community = Community.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def community_params
-      params.require(:community).permit(:name, :title, :description, :sidebar, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_community
+    @community = Community.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def community_params
+    params.require(:community).permit(:name, :title, :description, :sidebar, :user_id)
+  end
 end

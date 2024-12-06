@@ -81,3 +81,5 @@ gem "inline_svg", "~> 1.9"
 gem 'htmlbeautifier'
 
 gem "acts_as_votable", "~> 0.14.0"
+
+gem "standard", "~> 1.0"

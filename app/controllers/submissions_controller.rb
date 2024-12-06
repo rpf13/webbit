@@ -1,7 +1,7 @@
 class SubmissionsController < ApplicationController
   include ActionView::RecordIdentifier
-  before_action :set_submission, only: %i[ show edit update destroy upvote downvote ]
-  before_action :authenticate_user!, except: %i[ index show ]
+  before_action :set_submission, only: %i[show edit update destroy upvote downvote]
+  before_action :authenticate_user!, except: %i[index show]
 
   # GET /submissions or /submissions.json
   def index
@@ -11,6 +11,7 @@ class SubmissionsController < ApplicationController
   # GET /submissions/1 or /submissions/1.json
   def show
     @community = @submission.community
+    @subscription = @community.subscriptions.where(user: current_user).first
   end
 
   # GET /submissions/new
@@ -63,36 +64,39 @@ class SubmissionsController < ApplicationController
 
   def upvote
     respond_to do |format|
-      unless current_user.voted_for? @submission
-        @submission.upvote_by current_user
-        format.turbo_stream { render turbo_stream: turbo_stream.replace("#{dom_id(@submission)}_votes_count", @submission.total_vote_count)
-      }
+      if current_user.voted_for? @submission
+        format.html { redirect_back fallback_location: root_path, alert: "You already voted for this submission." }
       else
-         format.html { redirect_back fallback_location: root_path, alert: "You already voted for this submission."}
+        @submission.upvote_by current_user
+        format.turbo_stream {
+          render turbo_stream: turbo_stream.replace("#{dom_id(@submission)}_votes_count", @submission.total_vote_count)
+        }
       end
     end
   end
 
   def downvote
     respond_to do |format|
-      unless current_user.voted_for? @submission
-        @submission.downvote_by current_user
-        format.turbo_stream { render turbo_stream: turbo_stream.replace("#{dom_id(@submission)}_votes_count", @submission.total_vote_count)
-      }
+      if current_user.voted_for? @submission
+        format.html { redirect_back fallback_location: root_path, alert: "You already voted for this submission." }
       else
-        format.html { redirect_back fallback_location: root_path, alert: "You already voted for this submission."}
+        @submission.downvote_by current_user
+        format.turbo_stream {
+          render turbo_stream: turbo_stream.replace("#{dom_id(@submission)}_votes_count", @submission.total_vote_count)
+        }
       end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_submission
-      @submission = Submission.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def submission_params
-      params.require(:submission).permit(:title, :body, :url, :media, :community_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_submission
+    @submission = Submission.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def submission_params
+    params.require(:submission).permit(:title, :body, :url, :media, :community_id)
+  end
 end

@@ -22,9 +22,16 @@
         <% end %>
       </div>
 
-      <div class="prose prose-base prose-indigo">
-        <%= simple_format @submission.body %>
-      </div>
+      <% if @submission.body? %>
+        <div class="prose prose-base prose-indigo">
+          <%= simple_format @submission.body %>
+        </div>
+      <% end %>
+
+      <% if @submission.url? %>
+        <%= link_to truncate(@submission.url, length: 100), @submission.url, class: "text-greay-700 font-mono text-indigo-500 hover:underline", target: :_blank %>
+      <% end %>
+
       <%# Submission data %>
       <div class="flex items-center space-x-5 mt-6">
         <div class="flex items-center space-x-2">

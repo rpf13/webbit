@@ -1,3 +1,4 @@
+<%= content_for :community_label, @feed_title %>
 <% content_for :primary_content do %>
   <% if @submissions.any? %>
     <div id="submissions">
@@ -18,12 +19,12 @@
   <% end %>
 <% end %>
 <% content_for :secondary_content do %>
-<div class="mb-6">
-  <%= link_to "New submission", new_submission_path, class: "btn btn-indigo block text-center" %>
-</div>
-<div>
-  <%= link_to "New community", new_community_path, class: "btn btn-white block text-center" %>
-</div>
+  <div class="mb-6">
+    <%= link_to "New submission", new_submission_path, class: "btn btn-indigo block text-center" %>
+  </div>
+  <div>
+    <%= link_to "New community", new_community_path, class: "btn btn-white block text-center" %>
+  </div>
 
 <% end %>
 <%= render partial: "basic_layout" %>

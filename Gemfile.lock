@@ -87,6 +87,7 @@ GEM
     childprocess (5.1.0)
       logger (~> 1.5)
     concurrent-ruby (1.2.3)
+    connection_pool (2.4.1)
     crass (1.0.6)
     cssbundling-rails (1.4.0)
       railties (>= 6.0.0)
@@ -214,6 +215,9 @@ GEM
     rake (13.2.1)
     rdoc (6.6.3.1)
       psych (>= 4.0.0)
+    redis (4.8.1)
+    redis-client (0.23.0)
+      connection_pool
     regexp_parser (2.9.0)
     reline (0.5.3)
       io-console (~> 0.5)
@@ -244,6 +248,11 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sidekiq (7.3.6)
+      connection_pool (>= 2.3.0)
+      logger
+      rack (>= 2.2.4)
+      redis-client (>= 0.22.2)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -326,7 +335,9 @@ DEPENDENCIES
   letter_opener
   puma (~> 5.0)
   rails (~> 7.0.2, >= 7.0.2.3)
+  redis (~> 4.0)
   selenium-webdriver
+  sidekiq (~> 7.3)
   sprockets-rails
   sqlite3 (~> 1.4)
   standard (~> 1.0)

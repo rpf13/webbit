@@ -1,7 +1,7 @@
 class SubmissionsController < ApplicationController
   include ActionView::RecordIdentifier
   before_action :set_submission, only: %i[show edit update destroy upvote downvote]
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: %i[index show unsubscribe]
 
   # GET /submissions or /submissions.json
   def index
@@ -92,6 +92,11 @@ class SubmissionsController < ApplicationController
         }
       end
     end
+  end
+
+  def unsubscribe
+    user = User.find_by_unsubscribe_hash(params[:unsubscribe_hash])
+    user.update(comment_subscription: false)
   end
 
   private

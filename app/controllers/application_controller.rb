@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 
   # Add custom fields to the Devise registration form
   def configure_permitted_parameters
-    added_attrs = [:username]
+    added_attrs = [:username, :comment_subscription]
     devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
   end
